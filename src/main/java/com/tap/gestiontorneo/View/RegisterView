@@ -1,0 +1,95 @@
+package com.tap.gestiontorneo.View;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import org.kordamp.bootstrapfx.BootstrapFX;
+
+public class RegisterView {
+
+    private TextField fullNameField;
+    private TextField usernameField;
+    private TextField emailField;
+    private DatePicker datePicker;
+    private PasswordField passwordField;
+    private PasswordField confirmPasswordField;
+    private Button registerButton;
+
+    private Scene scene;
+
+    public RegisterView() {
+        inicializar();
+    }
+
+    private void inicializar() {
+        Label title = new Label("Registro de Usuario");
+        title.getStyleClass().addAll("h3", "text-success");
+
+        fullNameField = new TextField();
+        fullNameField.setPromptText("Nombre completo");
+
+        usernameField = new TextField();
+        usernameField.setPromptText("Nombre de usuario");
+
+        emailField = new TextField();
+        emailField.setPromptText("Correo electrónico");
+
+        datePicker = new DatePicker();
+        datePicker.setPromptText("Fecha de nacimiento");
+
+        passwordField = new PasswordField();
+        passwordField.setPromptText("Contraseña");
+
+        confirmPasswordField = new PasswordField();
+        confirmPasswordField.setPromptText("Confirmar contraseña");
+
+        registerButton = new Button("Registrar");
+        registerButton.getStyleClass().addAll("btn", "btn-success", "btn-lg");
+
+        VBox layout = new VBox(12, title, fullNameField, usernameField, emailField,
+                datePicker, passwordField, confirmPasswordField, registerButton);
+
+        layout.setAlignment(Pos.CENTER);
+        layout.setPadding(new Insets(30));
+        layout.getStyleClass().add("bg-light");
+
+        scene = new Scene(layout, 420, 520);
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+    }
+
+    // ---------- MÉTODOS PARA CONTROLADOR -----------
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public TextField getFullNameField() {
+        return fullNameField;
+    }
+
+    public TextField getUsernameField() {
+        return usernameField;
+    }
+
+    public TextField getEmailField() {
+        return emailField;
+    }
+
+    public DatePicker getDatePicker() {
+        return datePicker;
+    }
+
+    public PasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public PasswordField getConfirmPasswordField() {
+        return confirmPasswordField;
+    }
+
+    public Button getRegisterButton() {
+        return registerButton;
+    }
+}
