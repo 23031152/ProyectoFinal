@@ -1,0 +1,64 @@
+package com.tap.gestiontorneo.View;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.layout.*;
+import org.kordamp.bootstrapfx.BootstrapFX;
+
+public class CuentaView extends VBox {
+
+    public CuentaView() {
+
+        this.setSpacing(25);
+        this.setPadding(new Insets(40));
+        this.setAlignment(Pos.TOP_CENTER);
+        this.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+
+        // ---------------------------
+        // TÍTULO
+        // ---------------------------
+        Label title = new Label("Cuenta del Usuario");
+        title.getStyleClass().addAll("h2", "text-primary", "mb-4");
+
+        // ---------------------------
+        // CARD DE INFORMACIÓN
+        // ---------------------------
+        VBox card = new VBox(15);
+        card.setPadding(new Insets(20));
+        card.setAlignment(Pos.CENTER_LEFT);
+        card.setPrefWidth(450);
+        card.setStyle("-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20;" +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0, 0, 3);");
+
+        Label infoTitle = new Label("Información del Usuario");
+        infoTitle.getStyleClass().addAll("h4", "text-secondary");
+
+        Label nameLabel = new Label("Nombre: (Aquí va el nombre)");
+        Label emailLabel = new Label("Correo: (Aquí va el correo)");
+        Label fechaLabel = new Label("Fecha de nacimiento: (Aquí va la fecha)");
+
+        nameLabel.getStyleClass().add("lead");
+        emailLabel.getStyleClass().add("lead");
+        fechaLabel.getStyleClass().add("lead");
+
+        Separator sep = new Separator();
+
+        card.getChildren().addAll(infoTitle, sep, nameLabel, emailLabel, fechaLabel);
+
+        // ---------------------------
+        // BOTÓN DE CERRAR SESIÓN
+        // ---------------------------
+        Button logoutBtn = new Button("Cerrar Sesión");
+        logoutBtn.getStyleClass().addAll("btn", "btn-danger", "btn-lg", "mt-3");
+
+        // No agrego lógica (controlador), solo diseño de la vista
+
+        // ---------------------------
+        // AGREGAR TODO A LA VISTA
+        // ---------------------------
+        this.getChildren().addAll(title, card, logoutBtn);
+    }
+}
