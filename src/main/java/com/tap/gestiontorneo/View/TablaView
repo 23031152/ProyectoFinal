@@ -1,0 +1,57 @@
+package com.tap.gestiontorneo.view;
+
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+
+public class TablaView extends BorderPane {
+
+    private TableView<Object> tabla;        // Aquí solo se declara. El controller luego pondrá el model.
+    private Button btnActualizar;           // El controller escucha esto.
+
+    public TablaView() {
+        this.setPadding(new Insets(20));
+
+        // ====== TÍTULO ======
+        Label titulo = new Label("Tabla de Posiciones");
+        titulo.setFont(new Font(24));
+        BorderPane.setMargin(titulo, new Insets(10));
+        this.setTop(titulo);
+
+        // ====== TABLA ======
+        tabla = new TableView<>();
+        tabla.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        // Solo columnas vacías — el controller meterá el contenido real.
+        TableColumn<Object, String> colPos = new TableColumn<>("Posición");
+        TableColumn<Object, String> colEquipo = new TableColumn<>("Equipo");
+        TableColumn<Object, Integer> colPts = new TableColumn<>("Puntos");
+        TableColumn<Object, Integer> colGF = new TableColumn<>("GF");
+        TableColumn<Object, Integer> colGC = new TableColumn<>("GC");
+        TableColumn<Object, Integer> colDif = new TableColumn<>("DIF");
+
+        tabla.getColumns().addAll(colPos, colEquipo, colPts, colGF, colGC, colDif);
+
+        this.setCenter(tabla);
+
+        // ====== BOTÓN PARA EL CONTROLLER ======
+        btnActualizar = new Button("Actualizar Tabla");
+        btnActualizar.setPrefWidth(200);
+
+        VBox bottomBox = new VBox(btnActualizar);
+        bottomBox.setPadding(new Insets(20));
+        bottomBox.setSpacing(10);
+
+        this.setBottom(bottomBox);
+    }
+
+    // ====== GETTERS PARA QUE EL CONTROLLER PUEDA ACCEDER ======
+    public TableView<Object> getTabla() {
+        return tabla;
+    }
+
+    public Button getBtnActualizar() {
+        return btnActualizar;
+    }
+}
