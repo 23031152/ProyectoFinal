@@ -1,0 +1,79 @@
+package com.tap.gestiontorneo.view;
+
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+
+public class CalendarioView extends BorderPane {
+
+    private TableView<Object> tablaCalendario;
+    private DatePicker fechaPicker;
+    private TextField horaField;
+    private Button btnGuardar;
+
+    public CalendarioView() {
+
+        this.setPadding(new Insets(20));
+
+        // ====== TÍTULO ======
+        Label titulo = new Label("Calendario de Partidos");
+        titulo.setFont(new Font(24));
+        BorderPane.setMargin(titulo, new Insets(10));
+        this.setTop(titulo);
+
+        // ====== TABLA ======
+        tablaCalendario = new TableView<>();
+        tablaCalendario.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        TableColumn<Object, String> colPartido = new TableColumn<>("Partido");
+        TableColumn<Object, String> colEquipo1 = new TableColumn<>("Equipo 1");
+        TableColumn<Object, String> colEquipo2 = new TableColumn<>("Equipo 2");
+        TableColumn<Object, String> colFecha = new TableColumn<>("Fecha");
+        TableColumn<Object, String> colHora = new TableColumn<>("Hora");
+
+        tablaCalendario.getColumns().addAll(colPartido, colEquipo1, colEquipo2, colFecha, colHora);
+
+        this.setCenter(tablaCalendario);
+
+        // ====== FORMULARIO PARA ASIGNAR FECHA Y HORA ======
+        VBox form = new VBox();
+        form.setSpacing(10);
+        form.setPadding(new Insets(20));
+
+        fechaPicker = new DatePicker();
+        fechaPicker.setPromptText("Selecciona la fecha");
+
+        horaField = new TextField();
+        horaField.setPromptText("Ingresa la hora (Ej. 18:30)");
+
+        btnGuardar = new Button("Guardar Fecha y Hora");
+        btnGuardar.setPrefWidth(200);
+
+        form.getChildren().addAll(
+            new Label("Asignar fecha y hora al partido seleccionado:"),
+            fechaPicker,
+            horaField,
+            btnGuardar
+        );
+
+        this.setRight(form);
+    }
+
+    // ====== GETTERS PARA EL CONTROLLER ======
+    public TableView<Object> getTablaCalendario() {
+        return tablaCalendario;
+    }
+
+    public DatePicker getFechaPicker() {
+        return fechaPicker;
+    }
+
+    public TextField getHoraField() {
+        return horaField;
+    }
+
+    public Button getBtnGuardar() {
+        return btnGuardar;
+    }
+}
