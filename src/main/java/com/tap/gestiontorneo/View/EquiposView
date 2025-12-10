@@ -1,0 +1,135 @@
+package com.tap.gestiontorneo.View;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class EquiposView extends BorderPane {
+
+    // Lista de 16 TextFields
+    private final List<TextField> camposEquipos = new ArrayList<>();
+
+    // Contenedor principal donde se cambiará la vista
+    private final VBox mainContent = new VBox();
+
+    public EquiposView() {
+        setPadding(new Insets(20));
+        mostrarFormularioEquipos();
+    }
+
+    // ----------------------------------------------------
+    // 1) FORMULARIO DE INGRESO DE 16 EQUIPOS
+    // ----------------------------------------------------
+    private void mostrarFormularioEquipos() {
+
+        Label titulo = new Label("Registrar los 16 equipos");
+        titulo.setFont(Font.font(22));
+
+        VBox formulario = new VBox(10);
+        formulario.setAlignment(Pos.CENTER_LEFT);
+
+        for (int i = 1; i <= 16; i++) {
+            TextField tf = new TextField();
+            tf.setPromptText("Equipo " + i);
+            tf.setPrefWidth(250);
+            camposEquipos.add(tf);
+
+            HBox fila = new HBox(10, new Label(i + "."), tf);
+            fila.setAlignment(Pos.CENTER_LEFT);
+
+            formulario.getChildren().add(fila);
+        }
+
+        Button btnGuardar = new Button("Guardar equipos");
+        btnGuardar.setStyle("-fx-font-size: 14px; -fx-background-color: #1976D2; -fx-text-fill: white;");
+        btnGuardar.setOnAction(e -> mostrarBracket());
+
+        VBox contenedor = new VBox(20, titulo, formulario, btnGuardar);
+        contenedor.setAlignment(Pos.TOP_CENTER);
+
+        mainContent.getChildren().setAll(contenedor);
+
+        setCenter(mainContent);
+    }
+
+    // ----------------------------------------------------
+    // 2) BRACKET COMPLETO (octavos → cuartos → semis → final)
+    // ----------------------------------------------------
+    private void mostrarBracket() {
+
+        Label titulo = new Label("Bracket del Torneo");
+        titulo.setFont(Font.font(22));
+
+        // Columnas del bracket
+        VBox octavos = crearColumna("Octavos de final", 8);
+        VBox cuartos = crearColumna("Cuartos de final", 4);
+        VBox semis  = crearColumna("Semifinal", 2);
+        VBox finalR = crearColumna("Final", 1);
+
+        // Layout horizontal de las 4 columnas
+        HBox bracketLayout = new HBox(40, octavos, cuartos, semis, finalR);
+        bracketLayout.setAlignment(Pos.CENTER);
+
+        Button btnVolver = new Button("Regresar");
+        btnVolver.setOnAction(e -> mostrarFormularioEquipos());
+
+        VBox contenedor = new VBox(20, titulo, bracketLayout, btnVolver);
+        contenedor.setAlignment(Pos.TOP_CENTER);
+
+        mainContent.getChildren().setAll(contenedor);
+    }
+
+    // ----------------------------------------------------
+    // 3) Función para crear una columna de X partidos
+    // ----------------------------------------------------
+    private VBox crearColumna(String titulo, int cantidadPartidos) {
+
+        Label title = new Label(titulo);
+        title.setFont(Font.font(18));
+
+        VBox col = new VBox(15);
+        col.setAlignment(Pos.TOP_CENTER);
+
+        col.getChildren().add(title);
+
+        for (int i = 0; i < cantidadPartidos; i++) {
+            VBox box = crearCajaPartido(); // cajita profesional
+            col.getChildren().add(box);
+        }
+
+        return col;
+    }
+
+    // ----------------------------------------------------
+    // 4) CAJITA DE PARTIDO
+    // ----------------------------------------------------
+    private VBox crearCajaPartido() {
+
+        TextField local = new TextField("Equipo A");
+        TextField visita = new TextField("Equipo B");
+
+        local.setPrefWidth(140);
+        visita.setPrefWidth(140);
+
+        // marcador
+        TextField marcadorLocal = new TextField();
+        marcadorLocal.setPrefWidth(40);
+        TextField marcadorVisita = new TextField();
+        marcadorVisita.setPrefWidth(40);
+
+        HBox marcador = new HBox(5, marcadorLocal, new Label("-"), marcadorVisita);
+        marcador.setAlignment(Pos.CENTER);
+
+        VBox caja = new VBox(5, local, visita, marcador);
+        caja.setPadding(new Insets(10));
+        caja.setAlignment(Pos.CENTER);
+        caja.setStyle("-fx-border-color: gray; -fx-border-radius: 5; -fx-background-radius: 5;");
+
+        return caja;
+    }
+}
