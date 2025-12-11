@@ -1,0 +1,26 @@
+package com.tap.gestiontorneo.view;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+
+public class CuentaView extends VBox {
+
+    public CuentaView() {
+
+        Label title = new Label("Mi Cuenta");
+        title.getStyleClass().addAll("h2", "text-info");
+
+        Label usuario = new Label("Usuario: demoUser");
+        Label correo = new Label("Correo: demo@mail.com");
+
+        Button cerrarSesion = new Button("Cerrar Sesión");
+        cerrarSesion.getStyleClass().addAll("btn", "btn-danger");
+
+        this.getChildren().addAll(title, usuario, correo, cerrarSesion);
+        this.setSpacing(15);
+        this.setAlignment(Pos.CENTER);
+        this.setPadding(new Insets(20));
+    }
+}
