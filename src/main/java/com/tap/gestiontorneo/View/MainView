@@ -3,9 +3,9 @@ package com.tap.gestiontorneo.View;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
@@ -13,40 +13,33 @@ public class MainView {
 
     private BorderPane rootLayout;
 
-    // Vistas reales
-    private CuentaView cuentaView;
-    private EquiposView equiposView;
-    private TablaView tablaView;
-    private CalendarioView calendarioView;
+    private Pane cuentaView;
+    private Pane equiposView;
+    private Pane tablaView;
+    private Pane calendarioView;
 
     public void start(Stage stage) {
 
         rootLayout = new BorderPane();
 
-        // Crear instancias de vistas completas
         cuentaView = new CuentaView();
         equiposView = new EquiposView();
         tablaView = new TablaView();
         calendarioView = new CalendarioView();
 
-        // Construir menú lateral
         VBox sideMenu = buildSideMenu();
 
-        // Vista inicial = Cuenta
         rootLayout.setLeft(sideMenu);
         rootLayout.setCenter(cuentaView);
 
         Scene scene = new Scene(rootLayout, 1100, 650);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
-        stage.setTitle("Gestión de Torneos");
         stage.setScene(scene);
+        stage.setTitle("Gestión de Torneos - Panel Principal");
         stage.show();
     }
 
-    // ============================================================
-    // MENÚ LATERAL
-    // ============================================================
     private VBox buildSideMenu() {
 
         Label title = new Label("Menú");
@@ -57,25 +50,22 @@ public class MainView {
         Button tablaBtn = new Button("Tabla de posiciones");
         Button calendarioBtn = new Button("Calendario");
 
-        cuentaBtn.getStyleClass().addAll("btn", "btn-outline-primary", "btn-lg", "m-1");
-        equiposBtn.getStyleClass().addAll("btn", "btn-outline-primary", "btn-lg", "m-1");
-        tablaBtn.getStyleClass().addAll("btn", "btn-outline-primary", "btn-lg", "m-1");
-        calendarioBtn.getStyleClass().addAll("btn", "btn-outline-primary", "btn-lg", "m-1");
+        cuentaBtn.getStyleClass().add("btn");
+        equiposBtn.getStyleClass().add("btn");
+        tablaBtn.getStyleClass().add("btn");
+        calendarioBtn.getStyleClass().add("btn");
 
-        // Cambio de vistas
         cuentaBtn.setOnAction(e -> rootLayout.setCenter(cuentaView));
         equiposBtn.setOnAction(e -> rootLayout.setCenter(equiposView));
         tablaBtn.setOnAction(e -> rootLayout.setCenter(tablaView));
         calendarioBtn.setOnAction(e -> rootLayout.setCenter(calendarioView));
 
-        VBox menu = new VBox(12, title, cuentaBtn, equiposBtn, tablaBtn, calendarioBtn);
+        VBox menu = new VBox(15, title, cuentaBtn, equiposBtn, tablaBtn, calendarioBtn);
         menu.setPadding(new Insets(20));
         menu.setAlignment(Pos.TOP_CENTER);
-        menu.setPrefWidth(230);
-        menu.getStyleClass().add("bg-light");
+        menu.setPrefWidth(220);
+        menu.setStyle("-fx-background-color: #ECEFF1;");
 
         return menu;
     }
-
 }
-
