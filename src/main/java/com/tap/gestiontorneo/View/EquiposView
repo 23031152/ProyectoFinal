@@ -1,0 +1,54 @@
+package com.tap.gestiontorneo.view;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+
+public class EquiposView extends BorderPane {
+
+    private TextField txtEquipo;
+    private ListView<String> listaEquipos;
+    private Button btnAgregar;
+    private Button btnGenerar;
+    private VBox contenedorBrackets;
+
+    public EquiposView() {
+
+        Label title = new Label("Gestión de Equipos");
+        title.getStyleClass().addAll("h2", "text-success");
+        setTop(title);
+        BorderPane.setAlignment(title, Pos.CENTER);
+        BorderPane.setMargin(title, new Insets(15));
+
+        txtEquipo = new TextField();
+        txtEquipo.setPromptText("Nombre del equipo");
+
+        btnAgregar = new Button("Agregar");
+        btnAgregar.getStyleClass().add("btn-primary");
+
+        listaEquipos = new ListView<>();
+        listaEquipos.setPrefWidth(200);
+
+        btnGenerar = new Button("Generar Brackets");
+        btnGenerar.getStyleClass().add("btn-success");
+
+        VBox left = new VBox(10, txtEquipo, btnAgregar, listaEquipos, btnGenerar);
+        left.setPadding(new Insets(15));
+        left.setAlignment(Pos.TOP_CENTER);
+
+        setLeft(left);
+
+        contenedorBrackets = new VBox(15);
+        contenedorBrackets.setPadding(new Insets(20));
+        contenedorBrackets.setAlignment(Pos.TOP_CENTER);
+
+        setCenter(contenedorBrackets);
+    }
+
+    public ListView<String> getListaEquipos() { return listaEquipos; }
+    public Button getBtnAgregar() { return btnAgregar; }
+    public Button getBtnGenerar() { return btnGenerar; }
+    public VBox getContenedorBrackets() { return contenedorBrackets; }
+    public TextField getTxtEquipo() { return txtEquipo; }
+}
