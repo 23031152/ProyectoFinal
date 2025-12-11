@@ -1,0 +1,52 @@
+package com.tap.gestiontorneo.view;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.kordamp.bootstrapfx.BootstrapFX;
+
+public class RegisterView {
+
+    public void start(Stage stage) {
+
+        Label title = new Label("Registro de Usuario");
+        title.getStyleClass().addAll("h3", "text-success");
+
+        TextField fullName = new TextField();
+        fullName.setPromptText("Nombre completo");
+
+        TextField username = new TextField();
+        username.setPromptText("Nombre de usuario");
+
+        TextField email = new TextField();
+        email.setPromptText("Correo electrónico");
+
+        DatePicker fechaNac = new DatePicker();
+        fechaNac.setPromptText("Fecha de nacimiento");
+
+        PasswordField pass = new PasswordField();
+        pass.setPromptText("Contraseña");
+
+        PasswordField pass2 = new PasswordField();
+        pass2.setPromptText("Confirmar contraseña");
+
+        Button registerBtn = new Button("Registrar");
+        registerBtn.getStyleClass().addAll("btn", "btn-success", "btn-lg");
+
+        registerBtn.setOnAction(e -> stage.close());
+
+        VBox layout = new VBox(12, title, fullName, username, email, fechaNac, pass, pass2, registerBtn);
+        layout.setAlignment(Pos.CENTER);
+        layout.setPadding(new Insets(30));
+
+        Scene scene = new Scene(layout, 420, 520);
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+
+        stage.setScene(scene);
+        stage.setTitle("Registrarse");
+        stage.show();
+    }
+}
