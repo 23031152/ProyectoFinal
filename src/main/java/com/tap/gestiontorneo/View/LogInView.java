@@ -1,27 +1,20 @@
-package com.tap.gestiontorneo.View;
+package com.tap.gestiontorneo.view;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
-import java.util.Objects;
+public class LoginView {
 
-public class LogInView extends Application {
+    public void start(Stage stage) {
 
-    @Override
-    public void start(Stage primaryStage) {
-        // Título principal
         Label title = new Label("Inicio de Sesión");
         title.getStyleClass().addAll("h2", "text-primary");
-        title.setStyle("-fx-font-weight: bold;");
 
-        // Campos
         TextField usernameField = new TextField();
         usernameField.setPromptText("Usuario o correo");
         usernameField.getStyleClass().add("form-control");
@@ -30,90 +23,35 @@ public class LogInView extends Application {
         passwordField.setPromptText("Contraseña");
         passwordField.getStyleClass().add("form-control");
 
-        // Botones
         Button loginButton = new Button("Entrar");
         loginButton.getStyleClass().addAll("btn", "btn-primary", "btn-lg");
-        //loginButton.setOnAction(e -> loginController.loginFx(usernameField, passwordField));
 
-        Button showRegisterButton = new Button("Crear cuenta");
-        showRegisterButton.getStyleClass().addAll("btn", "btn-secondary");
-        showRegisterButton.setOnAction(e -> abrirVentanaRegistro());
+        // Aquí se abre el main view después de login
+        loginButton.setOnAction(e -> {
+            MainView mv = new MainView();
+            mv.start(new Stage());
+            stage.close();
+        });
 
-        // Layout principal
-        VBox loginLayout = new VBox(15, title, usernameField, passwordField, loginButton, showRegisterButton);
-        loginLayout.setAlignment(Pos.CENTER);
-        loginLayout.setPadding(new Insets(30));
-        loginLayout.getStyleClass().add("bg-light");
+        Button registerButton = new Button("Crear cuenta");
+        registerButton.getStyleClass().addAll("btn", "btn-secondary");
+        registerButton.setOnAction(e -> abrirRegister(stage));
 
-        Scene loginScene = new Scene(loginLayout, 400, 450);
-        loginScene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        VBox layout = new VBox(15, title, usernameField, passwordField, loginButton, registerButton);
+        layout.setAlignment(Pos.CENTER);
+        layout.setPadding(new Insets(30));
 
-        // icono
-//        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icon.png")));
-//        primaryStage.getIcons().add(icon);
+        Scene scene = new Scene(layout, 400, 450);
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
-        primaryStage.setScene(loginScene);
-        primaryStage.setTitle("Gestión de Torneos");
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.setTitle("Gestión Torneos - Login");
+        stage.show();
     }
 
-    // Ventana de Registro
-    private void abrirVentanaRegistro() {
-        Label registerTitle = new Label("Registro de Usuario");
-        registerTitle.getStyleClass().addAll("h3", "text-success");
-
-        TextField fullName = new TextField();
-        fullName.setPromptText("Nombre completo");
-        fullName.getStyleClass().add("form-control");
-
-        TextField regUsername = new TextField();
-        regUsername.setPromptText("Nombre de usuario");
-        regUsername.getStyleClass().add("form-control");
-
-        TextField regEmail = new TextField();
-        regEmail.setPromptText("Correo electrónico");
-        regEmail.getStyleClass().add("form-control");
-
-        DatePicker datePicker = new DatePicker();
-        datePicker.setPromptText("Fecha de nacimiento");
-        datePicker.getStyleClass().add("form-control");
-
-        PasswordField regPassword = new PasswordField();
-        regPassword.setPromptText("Contraseña");
-        regPassword.getStyleClass().add("form-control");
-
-        PasswordField confirmPassword = new PasswordField();
-        confirmPassword.setPromptText("Confirmar contraseña");
-        confirmPassword.getStyleClass().add("form-control");
-
-        Button submitButton = new Button("Registrar");
-        submitButton.getStyleClass().addAll("btn", "btn-success", "btn-lg");
-//        submitButton.setOnAction(e -> {
-//             boolean ok = registroController.registroFx(
-//                   fullName, regUsername, regEmail, regPassword, confirmPassword, datePicker
-//
-//            if (ok) ((Stage) submitButton.getScene().getWindow()).close();
-//        });
-
-        VBox registerLayout = new VBox(12, registerTitle, fullName, regUsername, regEmail,
-                datePicker, regPassword, confirmPassword, submitButton);
-        registerLayout.setAlignment(Pos.CENTER);
-        registerLayout.setPadding(new Insets(30));
-        registerLayout.getStyleClass().add("bg-light");
-
-        Scene registerScene = new Scene(registerLayout, 420, 520);
-        registerScene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-
-        //Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icon.png")));
-
-        Stage registerStage = new Stage();
-        //registerStage.getIcons().add(icon);
-        registerStage.setTitle("Registro de Usuario");
-        registerStage.setScene(registerScene);
-        registerStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+    private void abrirRegister(Stage loginStage) {
+        RegisterView rv = new RegisterView();
+        rv.start(new Stage());
     }
 }
+
